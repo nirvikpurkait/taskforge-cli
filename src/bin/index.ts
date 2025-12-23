@@ -1,4 +1,9 @@
-import { finalConfig, loadEnvFile, scriptName } from "@/utils";
+import {
+  arbitaryArgumets,
+  finalConfig,
+  loadEnvFile,
+  scriptName,
+} from "@/utils";
 import { spawn } from "node:child_process";
 
 loadEnvFile();
@@ -9,7 +14,7 @@ if (finalConfig?.scripts?.[scriptName]?.execute) {
 
   const executable = executableCommand[0];
 
-  const command = executableCommand.slice(1);
+  const command = executableCommand.slice(1).concat(arbitaryArgumets);
 
   const process = spawn(executable, command, {
     stdio: ["inherit", "pipe", "pipe"],
@@ -26,6 +31,6 @@ if (finalConfig?.scripts?.[scriptName]?.execute) {
 
   // Optional: listen for exit
   process.on("exit", (code, signal) => {
-    console.log(`Vite preview exited with code ${code}, signal ${signal}`);
+    console.log(`Process exited with code ${code}, signal ${signal}`);
   });
 }

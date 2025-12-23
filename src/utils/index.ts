@@ -122,41 +122,65 @@ type CliOptions =
     }
   | undefined;
 
+// unnecessary arguments that are passed to the script
+export const arbitaryArgumets: string[] = [];
+
 // create an object extracting the options for using later
 function extractCliOptions(): CliOptions {
   let cliOptions: CliOptions = {};
 
   passedArguments.forEach((arg, idx) => {
+    // if arg is not predefined or custom argument assume them as a arbitary argument as long not being sure
+    if (!(arg === scriptName || arg === ("custom" as string))) {
+      arbitaryArgumets.push(arg);
+    }
+
     // extract configuration
     if (arg === "-c" || arg === "--config") {
       cliOptions.configFileLocation = passedArguments[idx + 1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
     if (arg.startsWith("-c=") || arg.startsWith("--config=")) {
       cliOptions.configFileLocation = arg.split("=")[1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
 
     // extract env file location
     if (arg === "--envFile") {
       cliOptions.envFile = passedArguments[idx + 1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
     if (arg.startsWith("--envFile=")) {
       cliOptions.envFile = arg.split("=")[1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
 
     // extract env directory location
     if (arg === "--envDir") {
       cliOptions.envDir = passedArguments[idx + 1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
     if (arg.startsWith("--envDir=")) {
       cliOptions.envDir = arg.split("=")[1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
 
     // extract executing script
     if (arg === "--exec") {
       cliOptions.execute = passedArguments[idx + 1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
     if (arg.startsWith("--exec=")) {
       cliOptions.execute = arg.split("=")[1];
+      // assured last added argument is valid argument so remove it
+      arbitaryArgumets.pop();
     }
   });
 

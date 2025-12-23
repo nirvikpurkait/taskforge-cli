@@ -1,0 +1,93 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  # allow tag pushing
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # imitates cloning the repo into local amachine
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # imitates installing node.js into local machine
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org/"
+
+      # imitates installing pnpm as a package manager
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # imitates installation of packages
+      - name: Install dependencies
+        run: pnpm install
+
+      # uncomment after providing valid tests
+      # test if package working fine
+      # - name: Test cli app
+      #   run: pnpm test
+
+      # fetch all available git tags from remote to sync with local
+      - name: Fetch git tags from remote
+        run: git fetch --tags
+
+      # get the package version
+      - name: Read package version
+        id: pkg # id is necessary as it will be used later
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      # if tag exists return true otherwise false
+      - name: Check if tag already exists
+        id: check_tag # id is necessary as it will be used later
+        run: |
+          if git tag -l | grep -q "^${{ steps.pkg.outputs.tag }}$"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # if the tag is already published skip publishing again
+      - name: Skip if already published
+        if: steps.check_tag.outputs.exists == 'true'
+        run: echo "✅ Version already published, skipping."
+
+      # beuild the package
+      - name: Build CLI
+        if: steps.check_tag.outputs.exists == 'false'
+        run: pnpm build
+
+      # publish to npm
+      - name: Publish to npm
+        if: steps.check_tag.outputs.exists == 'false'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # create a new tag and push in into github
+      - name: Create and push git tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.pkg.outputs.tag }}
+          git push origin ${{ steps.pkg.outputs.tag }}
+
+      # notify completion
+      - name: Done
+        if: steps.check_tag.outputs.exists == 'false'
+        run: echo "✅ Published and tagged successfully!"

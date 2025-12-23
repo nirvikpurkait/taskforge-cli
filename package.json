@@ -1,6 +1,6 @@
 {
   "name": "taskforge-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "lint-staged": {
     "src/**/*.ts": "pnpm format"
@@ -9,6 +9,7 @@
     "prebuild": "rimraf ./dist",
     "build": "pkgroll",
     "format": "prettier --write src/**/*.ts",
+    "test": "tsx --test",
     "pre-commit": "lint-staged"
   },
   "bin": {
@@ -46,6 +47,7 @@
     "pkgroll": "^2.21.4",
     "prettier": "^3.7.4",
     "rimraf": "^6.1.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
