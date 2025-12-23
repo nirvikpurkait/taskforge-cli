@@ -1,0 +1,51 @@
+{
+  "name": "taskforge-cli",
+  "version": "0.0.0",
+  "description": "",
+  "lint-staged": {
+    "src/**/*.ts": "pnpm format"
+  },
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "pkgroll",
+    "format": "prettier --write src/**/*.ts",
+    "pre-commit": "lint-staged"
+  },
+  "bin": {
+    "tf": "dist/bin/index.js"
+  },
+  "exports": {
+    "./config": {
+      "require": {
+        "types": "./dist/exports/config.d.cts",
+        "default": "./dist/exports/config.cjs"
+      },
+      "import": {
+        "types": "./dist/exports/config.d.mts",
+        "default": "./dist/exports/config.mjs"
+      }
+    }
+  },
+  "keywords": [],
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.20.0",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "jiti": "^2.6.1",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "pkgroll": "^2.21.4",
+    "prettier": "^3.7.4",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3"
+  }
+}
