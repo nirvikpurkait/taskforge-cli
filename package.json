@@ -1,7 +1,7 @@
 {
   "name": "taskforge-cli",
   "version": "0.0.1",
-  "description": "",
+  "description": "A cli tool to leverage env related headache",
   "lint-staged": {
     "src/**/*.ts": "pnpm format"
   },
@@ -32,6 +32,20 @@
     "dist",
     "package.json"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nirvikpurkait/taskforge-cli.git"
+  },
+  "contributors": [
+    {
+      "email": "nirvikpurkait@gamil.com",
+      "name": "Nirvik Purkait"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/nirvikpurkait/taskforge-cli/issues"
+  },
+  "homepage": "https://github.com/nirvikpurkait/taskforge-cli",
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
