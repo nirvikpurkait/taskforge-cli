@@ -15,14 +15,16 @@
   "bin": {
     "tf": "dist/bin/index.js"
   },
+  "types": ".dist/**/*.d.ts",
   "exports": {
     "./config": {
+      "types": {
+        "default": "./dist/exports/config.d.ts"
+      },
       "require": {
-        "types": "./dist/exports/config.d.cts",
         "default": "./dist/exports/config.cjs"
       },
       "import": {
-        "types": "./dist/exports/config.d.mts",
         "default": "./dist/exports/config.mjs"
       }
     }

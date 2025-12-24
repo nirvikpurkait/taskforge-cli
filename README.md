@@ -12,7 +12,7 @@ In config file you can `defult` export an `Config` object or a `defineConfig()` 
 
 ## How to use it
 
-```json
+```
 // package.json
 
 ...
@@ -44,7 +44,7 @@ export default defineConfig({
 
 ## Options:
 
-### Config:
+### Config file location:
 
 **cli option**: `--config`
 
@@ -52,9 +52,9 @@ export default defineConfig({
 
 **type**: `string`
 
-**defult**: `process.cwd()`
+**defult**: `./tf.config.js|cjs|mjs|ts`
 
-If your config file is not at the root of your project, provide a relative path to the config file.
+If your config file is not at the root of your project, provide a relative path to the config file. i.e: `../config/tf.config.ts`
 
 ### Env file:
 
