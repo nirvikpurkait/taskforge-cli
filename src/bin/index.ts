@@ -17,16 +17,8 @@ if (finalConfig?.scripts?.[scriptName]?.execute) {
   const command = executableCommand.slice(1).concat(arbitaryArgumets);
 
   const process = spawn(executable, command, {
-    stdio: ["inherit", "pipe", "pipe"],
+    stdio: "inherit",
     shell: true,
-  });
-
-  process.stdout.on("data", (chunk) => {
-    console.log(chunk.toString());
-  });
-
-  process.stderr.on("data", (chunk) => {
-    console.error(chunk.toString());
   });
 
   // Optional: listen for exit

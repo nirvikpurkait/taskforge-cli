@@ -28,7 +28,7 @@ function identifyScript(): "dev" | "build" | "test" | (string & {}) {
     ];
   } else
     throw new Error(
-      'No script is passed.\nIf you have a custom scripts other than predefined scripts use "tf custom <script-name>".\nRemember the script name must be next to the custom keyword'
+      'No script is passed.\nIf you have a custom scripts other than predefined scripts use "tf custom <script-name>".\nRemember the script name must be next to the `custom` keyword'
     );
 }
 

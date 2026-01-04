@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `taskforge-cli` package metadata to add TS badge in npm.
+- Colourless logging. Changed parent process to inherite child process's `stdio` insted of piping.
 
 ### Updated
 
