@@ -18,9 +18,9 @@ In config file you can `defult` export an `Config` object or a `defineConfig()` 
 ...
   "scripts": {
     "build": "tf build",                            // predefined script dev | build | test
-    "foo": "tf custom foo",                         // custom script needs a "custom" keyword
-    "bar": "tf custom bar",                         // custom script needs a "custom" keyword
-    "bazz": "tf custom bazz --envFile ./.env.bazz", // custom script, loads ".env.bazz"
+    "foo": "tf run foo",                         // custom script needs a "run" keyword
+    "bar": "tf run bar",                         // custom script needs a "run" keyword
+    "bazz": "tf run bazz --envFile ./.env.bazz", // custom script, loads ".env.bazz"
   },
 ...
 ```

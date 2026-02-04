@@ -19,14 +19,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-<!-- ## [Unreleased] - YYYY-MM-DD -->
+## [1.0.0] - 2026-02-04
 
-<!-- [Unreleased]: https://github.com/nirvikpurkait/taskforge-cli/compare/v0.0.1...vUnreleased -->
+[1.0.0]: https://github.com/nirvikpurkait/taskforge-cli/compare/v0.0.1...v1.0.0
 
 ### Fixed
 
 - `taskforge-cli` package metadata to add TS badge in npm.
-- Colourless logging. Changed parent process to inherite child process's `stdio` insted of piping.
+- Colourless logging. Changed parent process to `inherit` child process's `stdio` insted of `pipe`ing.
+- Suppressed node warning.
 
 ### Updated
 

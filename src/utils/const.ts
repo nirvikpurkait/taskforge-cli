@@ -26,3 +26,9 @@ export const testEnvFileLoadingOrder = [
   ".env.local",
   ".env",
 ];
+
+export const defaultEnvFileLoadingOrder = [
+  //
+  ".env.local",
+  ".env",
+];

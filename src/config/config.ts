@@ -1,10 +1,12 @@
+import { CommonSpawnOptions } from "node:child_process";
 import { z } from "zod";
 
 export type ScriptDetails = {
   envFile?: string;
   execute: string;
   envDir?: string;
-};
+} & Partial<Pick<CommonSpawnOptions, "shell">>;
+
 export type Scripts = {
   dev?: ScriptDetails;
   build?: ScriptDetails;
