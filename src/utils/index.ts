@@ -73,6 +73,11 @@ type AvailableEnvFileOptiions = {
    * Used to determine the env file loading priority.
    */
   scriptName: ReturnType<typeof identifyScript>;
+
+  /**
+   * Optionally provide custom env file for custom script.
+   */
+  customeEnvFile?: string;
 };
 
 /**
@@ -95,6 +100,7 @@ type AvailableEnvFileOptiions = {
 export function availableEnvFile({
   scriptName,
   scanningDir,
+  customeEnvFile,
 }: AvailableEnvFileOptiions): string | null {
   // If no scanning directory is provided, resolve relative to root
   if (!scanningDir) {
@@ -107,7 +113,10 @@ export function availableEnvFile({
     if (scriptName === "test") {
       return resolveEnvFile(testEnvFileLoadingOrder, "");
     }
-    return resolveEnvFile(defaultEnvFileLoadingOrder, "");
+    return resolveEnvFile(
+      customeEnvFile ? [customeEnvFile] : defaultEnvFileLoadingOrder,
+      ""
+    );
   }
 
   // Resolve env files within the provided scanning directory
@@ -120,7 +129,10 @@ export function availableEnvFile({
   if (scriptName === "test") {
     return resolveEnvFile(testEnvFileLoadingOrder, scanningDir);
   }
-  return resolveEnvFile(defaultEnvFileLoadingOrder, scanningDir);
+  return resolveEnvFile(
+    customeEnvFile ? [customeEnvFile] : defaultEnvFileLoadingOrder,
+    scanningDir
+  );
 
   /**
    * Iterates over a prioritized list of env files and returns

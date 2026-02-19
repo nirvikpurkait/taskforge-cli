@@ -27,6 +27,7 @@ export const passedArguments = argv.slice(2);
   const envFileToLoad = availableEnvFile({
     scriptName: scriptName,
     scanningDir: finalConfig.envDir,
+    customeEnvFile: finalConfig.scripts[scriptName]?.envFile,
   });
 
   // Warn if no env file was found
@@ -57,7 +58,7 @@ export const passedArguments = argv.slice(2);
     });
 
     // Log exit information for debugging purposes
-    executingProcess.on("exit", (code, signal) => {
+    executingProcess.on("exit", (code: any, signal: any) => {
       console.log(`Process exited with code ${code}, signal ${signal}`);
     });
   }
