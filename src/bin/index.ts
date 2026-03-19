@@ -27,7 +27,7 @@ export const passedArguments = argv.slice(2);
   const envFileToLoad = availableEnvFile({
     scriptName: scriptName,
     scanningDir: finalConfig.envDir,
-    customeEnvFile: finalConfig.scripts[scriptName]?.envFile,
+    customEnvFile: finalConfig.scripts[scriptName]?.envFile,
   });
 
   // Warn if no env file was found
@@ -50,11 +50,24 @@ export const passedArguments = argv.slice(2);
     const executable = executableCommand[0];
     const commandArgs = executableCommand.slice(1).concat(arbitaryCliArgumets);
 
+    const nodeEnv = finalConfig.scripts.build
+      ? "production"
+      : finalConfig.scripts.dev
+        ? "development"
+        : finalConfig.scripts.test
+          ? "test"
+          : undefined;
+
     // Spawn the child process
     const executingProcess = spawn(`${executable} ${commandArgs.join(" ")}`, {
       stdio: "inherit",
       // Use shell mode unless explicitly disabled in config
       shell: finalConfig.scripts[scriptName].shell ?? true,
+      env: {
+        NODE_ENV: nodeEnv ? nodeEnv : undefined,
+        ...process.env,
+        ...finalConfig.scripts[scriptName].envValues,
+      },
     });
 
     // Log exit information for debugging purposes

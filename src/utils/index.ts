@@ -77,7 +77,7 @@ type AvailableEnvFileOptiions = {
   /**
    * Optionally provide custom env file for custom script.
    */
-  customeEnvFile?: string;
+  customEnvFile?: string;
 };
 
 /**
@@ -100,7 +100,7 @@ type AvailableEnvFileOptiions = {
 export function availableEnvFile({
   scriptName,
   scanningDir,
-  customeEnvFile,
+  customEnvFile,
 }: AvailableEnvFileOptiions): string | null {
   // If no scanning directory is provided, resolve relative to root
   if (!scanningDir) {
@@ -114,7 +114,7 @@ export function availableEnvFile({
       return resolveEnvFile(testEnvFileLoadingOrder, "");
     }
     return resolveEnvFile(
-      customeEnvFile ? [customeEnvFile] : defaultEnvFileLoadingOrder,
+      customEnvFile ? [customEnvFile] : defaultEnvFileLoadingOrder,
       ""
     );
   }
@@ -130,7 +130,7 @@ export function availableEnvFile({
     return resolveEnvFile(testEnvFileLoadingOrder, scanningDir);
   }
   return resolveEnvFile(
-    customeEnvFile ? [customeEnvFile] : defaultEnvFileLoadingOrder,
+    customEnvFile ? [customEnvFile] : defaultEnvFileLoadingOrder,
     scanningDir
   );
 

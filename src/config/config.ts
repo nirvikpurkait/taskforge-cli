@@ -5,6 +5,7 @@ export type ScriptDetails = {
   envFile?: string;
   execute: string;
   envDir?: string;
+  envValues?: Record<string, number | boolean | string>;
 } & Partial<Pick<CommonSpawnOptions, "shell">>;
 
 export type Scripts = {
@@ -16,6 +17,7 @@ export type Scripts = {
 export const configSchema = z
   .object({
     envDir: z.string().optional(),
+
     scripts: z.custom<Scripts>().optional(),
   })
   .optional();

@@ -1,11 +1,13 @@
 {
   "name": "taskforge-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A cli tool to leverage env related headache",
   "lint-staged": {
     "src/**/*.ts": "pnpm format"
   },
   "scripts": {
+    "predev": "rimraf ./dist",
+    "dev": "pkgroll --watch",
     "prebuild": "rimraf ./dist",
     "build": "pkgroll",
     "format": "prettier --write src/**/*.ts",
@@ -16,7 +18,6 @@
   "bin": {
     "tf": "dist/bin/index.js"
   },
-  "types": "./dist/**/*.d.ts",
   "exports": {
     "./config": {
       "types": {
